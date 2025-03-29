@@ -1,0 +1,386 @@
+
+<!DOCTYPE html> <html lang="en">
+ <head>
+  <meta charset="UTF-8">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge">    
+<meta name="viewport" content="width=device-width, initial-scale=1.0">  
+  <title>Student Dashboard</title>
+   <link rel="shortcut icon" href="MehranUniLogo-WO-BG.png">   
+ <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">     <link rel="stylesheet" href="index.css">
+     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+ <body>   
+ <header>    
+    <div class="logo" title="Management Information Systems">            
+<img src="MehranUniLogo-WO-BG.png" alt="">       
+     <h2>M<span class="danger">I</span>S</h2>        
+</div>
+        <div class="navbar">
+            <a href="index.html" class="active">
+                <span class="material-icons-sharp">home</span>
+                <h3>Home</h3>
+            </a>
+            <a href="timetable.html" onclick="timeTableAll()">
+                <span class="material-icons-sharp">today</span>
+                <h3>Study Reminders</h3>
+            </a> 
+            <a href="Quiz.html">
+                <span class="material-icons-sharp">grid_view</span>
+                <h3>Quizzes</h3>
+            </a>
+            <a href="password.html">
+                <span class="material-icons-sharp">password</span>
+                <h3>Change Password</h3>
+            </a>
+            <a href="#">
+                <span class="material-icons-sharp" onclick="">logout</span>
+                <h3>Logout</h3>
+            </a>
+        </div>
+        <div id="profile-btn">
+            <span class="material-icons-sharp">person</span>
+        </div>
+        <div class="theme-toggler">
+            <span class="material-icons-sharp active">light_mode</span>
+            <span class="material-icons-sharp">dark_mode</span>
+        </div>
+        
+    </header>
+    <div class="container">
+        <aside>
+            <div class="profile">
+                <div class="top">
+                    <div class="profile-photo">
+                        <img src="anzaPic.jpg" alt="" id="current-profile-img">
+                    </div>
+                    <div class="info">
+                        <p>Hey, <b>Anza</b> </p>
+                        <small class="text-muted">22CS074</small>
+                    </div>
+                    <button id="change-profile-btn" class="material-icons-sharp" style="background: none; border: none; cursor: pointer; color: #666;" title="Change Profile Picture">edit</button>
+                </div>
+                <div class="about">
+                    <h5>Course</h5>
+                    <p>BE. Computer Systems Engineering</p>
+                    <h5>DOB</h5>
+                    <p>24-Apr-2004</p>
+                    <h5>Contact</h5>
+                    <p>+92 333-3030303</p>
+                    <h5>Email</h5>
+                    <p>anzaarain125@gmail.com</p>
+                    <h5>Address</h5>
+                    <p>Qasimabad, Hyderabad</p>
+                </div>
+            </div>
+        </aside>
+
+        <main>
+            <h1>Progress</h1>
+            <div class="subjects">
+                <div class="eg">
+                    <span class="material-icons-sharp">architecture</span>
+                    <h3>Microprocessor & interfacing Techniques</h3>
+                    <h2>88/100</h2>
+                    <div class="progress">
+                        <svg><circle cx="38" cy="38" r="36"></circle></svg>
+                        <div class="number"><p>88%</p></div>
+                    </div>
+                </div>
+                <div class="mth">
+                    <span class="material-icons-sharp">functions</span>
+                    <h3>Statistics & probability</h3>
+                    <h2>92/100</h2>
+                    <div class="progress">
+                        <svg><circle cx="38" cy="38" r="36"></circle></svg>
+                        <div class="number"><p>92%</p></div>
+                    </div>
+                </div>
+                <div class="cs">
+                    <span class="material-icons-sharp">computer</span>
+                    <h3>Web Engineering</h3>
+                    <h2>79/100</h2>
+                    <div class="progress">
+                        <svg><circle cx="38" cy="38" r="36"></circle></svg>
+                        <div class="number"><p>79%</p></div>
+                    </div>
+                </div>
+                <div class="cg">
+                    <span class="material-icons-sharp">dns</span>
+                    <h3>Software Engineering</h3>
+                    <h2>74/100</h2>
+                    <div class="progress">
+                        <svg><circle cx="38" cy="38" r="36"></circle></svg>
+                        <div class="number"><p>74%</p></div>
+                    </div>
+                </div>
+                <div class="net">
+                    <span class="material-icons-sharp">router</span>
+                    <h3>Computer Networks</h3>
+                    <h2>85/100</h2>
+                    <div class="progress">
+                        <svg><circle cx="38" cy="38" r="36"></circle></svg>
+                        <div class="number"><p>85%</p></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timetable" id="timetable">
+                <div>
+                    <span id="prevDay">&lt;</span>
+                    <h2>Today's Reminder</h2>
+                    <span id="nextDay">&gt;</span>
+                </div>
+                <span class="closeBtn" onclick="timeTableAll()">X</span>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Room No.</th>
+                            <th>Subject</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </main>
+
+        <div class="right">
+            <!-- Progress Graph Section -->
+            <div class="progress-chart">
+                <h2>Academic Progress</h2>
+                <div class="chart-wrapper">
+                    <canvas id="progressChart"></canvas>
+                </div>
+            </div>
+
+            <div class="leaves">
+                <h2>Upcoming Deadlines</h2>
+    <div class="deadline-item">
+        <div class="icon">
+            <span class="material-icons-sharp">assignment</span>
+        </div>
+        <div class="info">
+            <h3>CN Assignment 1</h3>
+            <small class="text-muted">Due Tomorrow</small>
+        </div>
+    </div>
+    <div class="deadline-item">
+        <div class="icon">
+            <span class="material-icons-sharp">quiz</span>
+        </div>
+        <div class="info">
+            <h3>SP Quiz 2</h3>
+            <small class="text-muted">3 days left</small>
+        </div>
+    </div>
+    <div class="deadline-item">
+        <div class="icon">
+            <span class="material-icons-sharp">groups</span>
+        </div>
+        <div class="info">
+            <h3>SE Group Project</h3>
+            <small class="text-muted">1 week left</small>
+        </div>
+    </div>
+    <button class="view-all">View All Deadlines</button>
+</div>
+            </div>
+        </div>
+    </div>
+    
+   <!-- Profile Change Modal -->
+   <div class="profile-modal" id="profileModal">
+    <div class="profile-modal-content">
+        <h2>Change Profile Picture</h2>
+        
+        <div class="profile-preview">
+            <img id="profilePreview" src="anzaPic.jpg" alt="Profile Preview">
+        </div>
+        
+        <p class="upload-instructions">Upload a square image for best results (Max 2MB)</p>
+        
+        <div class="file-upload">
+            <label for="fileInput" class="file-upload-label">
+                <span class="material-icons-sharp">upload</span> Choose Image
+            </label>
+            <input type="file" id="fileInput" accept="image/*">
+        </div>
+        
+        <div class="modal-buttons">
+            <button class="cancel-btn" id="cancelProfileChange">Cancel</button>
+            <button class="save-btn" id="saveProfileChange">Save</button>
+        </div>
+    </div>
+</div>
+    
+    <script>
+       document.addEventListener('DOMContentLoaded', function() {
+            // Bar Chart Configuration
+            const ctx = document.getElementById('progressChart').getContext('2d');
+            
+            const chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: [
+                        'Microprocessor', 
+                        'Statistics', 
+                        'Web Eng', 
+                        'Software Eng', 
+                        'Networks'
+                    ],
+                    datasets: [{
+                        label: 'Score (%)',
+                        data: [88, 92, 79, 74, 85],
+                        backgroundColor: [
+                            'rgba(75, 192, 192, 0.7)',
+                            'rgba(54, 162, 235, 0.7)',
+                            'rgba(255, 206, 86, 0.7)',
+                            'rgba(255, 99, 132, 0.7)',
+                            'rgba(153, 102, 255, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(153, 102, 255, 1)'
+                        ],
+                        borderWidth: 1,
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.05)'
+                            },
+                            ticks: {
+                                stepSize: 20
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.parsed.y + '%';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // chart responsive on window resize
+            window.addEventListener('resize', function() {
+                chart.resize();
+            });
+            
+            // Profile Change Functionality
+            const profileModal = document.getElementById('profileModal');
+            const changeProfileBtn = document.getElementById('change-profile-btn');
+            const cancelProfileChange = document.getElementById('cancelProfileChange');
+            const saveProfileChange = document.getElementById('saveProfileChange');
+            const currentProfileImg = document.getElementById('current-profile-img');
+            const fileInput = document.getElementById('fileInput');
+            const profilePreview = document.getElementById('profilePreview');
+            
+            let selectedFile = null;
+            
+            // Open modal
+            changeProfileBtn.addEventListener('click', function() {
+                profileModal.style.display = 'flex';
+                // Load current profile from localStorage if available
+                const savedProfile = localStorage.getItem('profileImage');
+                if (savedProfile) {
+                    profilePreview.src = savedProfile;
+                } else {
+                    profilePreview.src = currentProfileImg.src;
+                }
+                selectedFile = null;
+            });
+            
+            // Close modal
+            cancelProfileChange.addEventListener('click', function() {
+                profileModal.style.display = 'none';
+                selectedFile = null;
+            });
+            
+            // Handle file selection
+            fileInput.addEventListener('change', function(e) {
+                if (e.target.files && e.target.files[0]) {
+                    const file = e.target.files[0];
+                    
+                    // Check file size (max 2MB)
+                    if (file.size > 2 * 1024 * 1024) {
+                        alert('File size should be less than 2MB');
+                        return;
+                    }
+                    
+                    // Check file type
+                    if (!file.type.match('image.*')) {
+                        alert('Please select an image file');
+                        return;
+                    }
+                    
+                    selectedFile = file;
+                    
+                    // Preview the image
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        profilePreview.src = event.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+            
+            // Save profile change
+            saveProfileChange.addEventListener('click', function() {
+                if (selectedFile) {
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        // Update the profile image
+                        currentProfileImg.src = event.target.result;
+                        // Save to localStorage
+                        localStorage.setItem('profileImage', event.target.result);
+                        // Close modal
+                        profileModal.style.display = 'none';
+                        selectedFile = null;
+                        
+                        // Show success message
+                        alert('Profile picture updated successfully!');
+                    };
+                    reader.readAsDataURL(selectedFile);
+                } else {
+                    // If no new file selected but user clicked save
+                    alert('Please select an image first.');
+                }
+            });
+            
+            // Load saved profile on page load
+            const savedProfile = localStorage.getItem('profileImage');
+            if (savedProfile) {
+                currentProfileImg.src = savedProfile;
+            }
+        });
+    </script>
+    <script src="timetable.js"></script>
+    <script src="index.js"></script>
+    
+</body>
+</html>
+
